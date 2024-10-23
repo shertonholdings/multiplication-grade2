@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 2 - Simple Multiplication (2, 5, 10 Times Tables)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #logo img {
+            width: 150px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 18px;
+            width: 100px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .star {
+            display: inline-block;
+            color: gold;
+            font-size: 40px;
+            margin: 5px;
+        }
+        #reward {
+            margin-top: 20px;
+        }
+        #more-lessons {
+            margin-top: 40px;
+            font-size: 18px;
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        #more-lessons:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at the top -->
+    <div id="logo">
+        <img src="https://i.imgur.com/mwpTHJj.png" alt="Logo">
+    </div>
+
+    <h1>Simple Multiplication (2, 5, 10 Times Tables)</h1>
+
+    <!-- Question -->
+    <div id="question"></div>
+
+    <!-- Answer Input -->
+    <input type="number" id="answer" placeholder="Your answer" />
+
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+
+    <div id="feedback"></div>
+
+    <!-- Star rewards -->
+    <div id="reward"></div>
+
+    <!-- "More Lessons" button at the bottom -->
+    <a id="more-lessons" href="https://sites.google.com/view/grades-2/home">More Lessons</a>
+
+    <script>
+        let num1, num2, correctAnswer, stars = 0;
+
+        // Generate a random multiplication problem
+        function generateQuestion() {
+            const tables = [2, 5, 10];
+            num1 = tables[Math.floor(Math.random() * tables.length)]; // Pick 2, 5, or 10
+            num2 = Math.floor(Math.random() * 10) + 1; // Pick a number between 1 and 10
+            correctAnswer = num1 * num2;
+            document.getElementById('question').innerText = `What is ${num1} x ${num2}?`;
+            document.getElementById('feedback').innerText = ''; // Clear feedback
+            document.getElementById('answer').value = ''; // Clear the input box
+        }
+
+        // Check the answer
+        function checkAnswer() {
+            let userAnswer = parseInt(document.getElementById('answer').value);
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('feedback').innerText = "Well done!";
+                document.getElementById('feedback').style.color = "green";
+                addStar();
+                setTimeout(generateQuestion, 2000); // Move to the next question after 2 seconds
+            } else {
+                document.getElementById('feedback').innerText = "Try again!";
+                document.getElementById('feedback').style.color = "red";
+                document.getElementById('answer').value = ''; // Clear the answer box
+            }
+        }
+
+        // Add a star for correct answers
+        function addStar() {
+            stars++;
+            let starElement = document.createElement("div");
+            starElement.innerHTML = "★"; // Star symbol
+            starElement.className = "star";
+            document.getElementById('reward').appendChild(starElement);
+        }
+
+        // Initialize question on page load
+        window.onload = function() {
+            generateQuestion();
+        }
+    </script>
+
+</body>
+</html>
+
